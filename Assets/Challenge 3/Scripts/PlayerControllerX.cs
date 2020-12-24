@@ -36,7 +36,10 @@ public class PlayerControllerX : MonoBehaviour
       // While space is pressed and player is low enough, float up
       if (Input.GetKey(KeyCode.Space) && !gameOver)
       {
-         playerRb.AddForce(Vector3.up * floatForce);
+         if (transform.position.y < 15)
+         {
+            playerRb.AddForce(Vector3.up * floatForce);
+         }
       }
    }
 
@@ -57,6 +60,11 @@ public class PlayerControllerX : MonoBehaviour
          fireworksParticle.Play();
          playerAudio.PlayOneShot(moneySound, 1.0f);
          Destroy(other.gameObject);
+      }
+      // if player collides with ground
+      else if (other.gameObject.CompareTag("Ground"))
+      {
+         playerRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
       }
    }
 }
