@@ -27,7 +27,13 @@ public class SpawnManagerX : MonoBehaviour
       // If game is still active, spawn new object
       if (!playerControllerScript.gameOver)
       {
-         Instantiate(objectPrefabs[index], spawnLocation, objectPrefabs[index].transform.rotation);
+         var spawn = Instantiate(objectPrefabs[index], spawnLocation, objectPrefabs[index].transform.rotation);
+
+         if (spawn.name.Contains("Bomb"))
+         {
+            // Add Script to Move
+            spawn.AddComponent<BombControllerX>();
+         }
       }
 
    }

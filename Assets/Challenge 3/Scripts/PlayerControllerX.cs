@@ -1,21 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerControllerX : MonoBehaviour
 {
-   public bool gameOver;
+   [HideInInspector] public bool gameOver;
 
-   public float floatForce;
-   private float gravityModifier = 1.5f;
-   private Rigidbody playerRb;
+   int score;
+   float gravityModifier = 1.5f;
+   Rigidbody playerRb;
+   AudioSource playerAudio;
 
-   public ParticleSystem explosionParticle;
-   public ParticleSystem fireworksParticle;
-
-   private AudioSource playerAudio;
-   public AudioClip moneySound;
-   public AudioClip explodeSound;
+   [SerializeField] float floatForce;
+   [SerializeField] ParticleSystem explosionParticle;
+   [SerializeField] ParticleSystem fireworksParticle;
+   [SerializeField] AudioClip moneySound;
+   [SerializeField] AudioClip explodeSound;
+   [SerializeField] TextMeshProUGUI scoreText;
 
 
    // Start is called before the first frame update
@@ -43,6 +45,11 @@ public class PlayerControllerX : MonoBehaviour
       }
    }
 
+   void FixedUpdate()
+   {
+      scoreText.text = "Score: " + score;
+   }
+
    private void OnCollisionEnter(Collision other)
    {
       // if player collides with bomb, explode and set gameOver to true
@@ -53,10 +60,12 @@ public class PlayerControllerX : MonoBehaviour
          gameOver = true;
          Debug.Log("Game Over!");
          Destroy(other.gameObject);
+         Destroy(gameObject);
       }
       // if player collides with money, fireworks
       else if (other.gameObject.CompareTag("Money"))
       {
+         score++;
          fireworksParticle.Play();
          playerAudio.PlayOneShot(moneySound, 1.0f);
          Destroy(other.gameObject);
@@ -66,5 +75,11 @@ public class PlayerControllerX : MonoBehaviour
       {
          playerRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
       }
+   }
+
+
+   public int GetScore()
+   {
+      return score;
    }
 }
