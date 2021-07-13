@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveLeft : MonoBehaviour
+namespace Prototype3
 {
-   private float speed = 30.0f;
-   private PlayerController playerControllerScript;
-
-   // Start is called before the first frame update
-   void Start()
+   public class MoveLeft : MonoBehaviour
    {
-      playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
-   }
+      float speed = 30.0f;
+      PlayerController playerControllerScript;
 
-   // Update is called once per frame
-   void Update()
-   {
-      if (playerControllerScript.gameOver == false)
+      // Start is called before the first frame update
+      void Start()
       {
-         transform.Translate(Vector3.left * Time.deltaTime * speed);
+         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+      }
+
+      // Update is called once per frame
+      void Update()
+      {
+         if (playerControllerScript.gameOver == false)
+         {
+            transform.Translate(Vector3.left * Time.deltaTime * speed);
+         }
       }
    }
 }

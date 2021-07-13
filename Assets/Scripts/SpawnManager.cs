@@ -2,35 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+namespace Prototype3
 {
-   public GameObject obstaclePrefab;
-   private PlayerController playerControllerScript;
-
-   private Vector3 spawnPos = new Vector3(25, 0, 0);
-   private float startDelay = 2f;
-   private float repeatRate = 2f;
-
-
-   // Start is called before the first frame update
-   void Start()
+   public class SpawnManager : MonoBehaviour
    {
-      playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+      float startDelay = 2f;
+      float repeatRate = 2f;
 
-      InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
-   }
+      Vector3 spawnPos = new Vector3(25, 0, 0);
+      PlayerController playerControllerScript;
 
-   // Update is called once per frame
-   void Update()
-   {
+      [SerializeField] GameObject obstaclePrefab;
 
-   }
-
-   void SpawnObstacle()
-   {
-      if (playerControllerScript.gameOver == false)
+      // Start is called before the first frame update
+      void Start()
       {
-         Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+
+         InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
+      }
+
+      // Update is called once per frame
+      void Update()
+      {
+
+      }
+
+      void SpawnObstacle()
+      {
+         if (playerControllerScript.gameOver == false)
+         {
+            Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+         }
       }
    }
 }
