@@ -7,16 +7,17 @@ namespace Prototype3
    public class PlayerController : MonoBehaviour
    {
       bool isOnGround = true;
-      float jumpForce = 10;
-      float gravityModifier;
-      AudioClip jumpSound;
-      AudioClip crashSound;
-      ParticleSystem explosionParticle;
-      ParticleSystem dirtParticle;
+      float jumpForce = 250.0f;
+      float gravityModifier = 0.25f;
 
       Rigidbody playerRb;
       Animator playerAnim;
       AudioSource playerAudio;
+
+      [SerializeField] AudioClip jumpSound = default;
+      [SerializeField] AudioClip crashSound = default;
+      [SerializeField] ParticleSystem explosionParticle = default;
+      [SerializeField] ParticleSystem dirtParticle = default;
 
       public bool gameOver = false;
 
