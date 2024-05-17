@@ -2,28 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Prototype3
-{
-   public class PlayerController : MonoBehaviour
-   {
-      bool isOnGround = true;
-      float jumpForce = 250.0f;
-      float gravityModifier = 0.25f;
+namespace Prototype3 {
+   public class PlayerController : MonoBehaviour {
+      private bool isOnGround = true;
+      private float jumpForce = 250.0f;
+      private float gravityModifier = 0.25f;
 
-      Rigidbody playerRb;
-      Animator playerAnim;
-      AudioSource playerAudio;
+      private Rigidbody playerRb;
+      private Animator playerAnim;
+      private AudioSource playerAudio;
 
-      [SerializeField] AudioClip jumpSound = default;
-      [SerializeField] AudioClip crashSound = default;
-      [SerializeField] ParticleSystem explosionParticle = default;
-      [SerializeField] ParticleSystem dirtParticle = default;
+      [SerializeField] private AudioClip jumpSound = default;
+      [SerializeField] private AudioClip crashSound = default;
+      [SerializeField] private ParticleSystem explosionParticle = default;
+      [SerializeField] private ParticleSystem dirtParticle = default;
 
       public bool gameOver = false;
 
       // Start is called before the first frame update
-      void Start()
-      {
+      private void Start() {
          playerRb = GetComponent<Rigidbody>();
          playerAnim = GetComponent<Animator>();
          playerAudio = GetComponent<AudioSource>();
@@ -32,10 +29,8 @@ namespace Prototype3
       }
 
       // Update is called once per frame
-      void Update()
-      {
-         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver)
-         {
+      private void Update() {
+         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver) {
             isOnGround = false;
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             playerAnim.SetTrigger("Jump_trig");
@@ -44,15 +39,11 @@ namespace Prototype3
          }
       }
 
-      void OnCollisionEnter(Collision other)
-      {
-         if (other.gameObject.CompareTag("Ground"))
-         {
+      private void OnCollisionEnter(Collision other) {
+         if (other.gameObject.CompareTag("Ground")) {
             isOnGround = true;
             dirtParticle.Play();
-         }
-         else if (other.gameObject.CompareTag("Obstacle"))
-         {
+         } else if (other.gameObject.CompareTag("Obstacle")) {
             // Game Over
             gameOver = true;
             playerAudio.PlayOneShot(crashSound, 1.0f);
