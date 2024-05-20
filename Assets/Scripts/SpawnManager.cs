@@ -14,7 +14,9 @@ namespace Prototype3 {
 
       // Start is called before the first frame update
       private void Start() {
-         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+         if (playerControllerScript == null) {
+            playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+         }
 
          InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
       }

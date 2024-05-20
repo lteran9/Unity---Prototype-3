@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Prototype3 {
    public class MoveLeft : MonoBehaviour {
-      private float speed = 30.0f;
+      private float speed = 15.0f;
 
       [SerializeField] private PlayerController playerControllerScript;
 
       // Start is called before the first frame update
       private void Start() {
-         if (playerControllerScript != null) {
+         if (playerControllerScript == null) {
             playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
          }
       }
