@@ -5,8 +5,8 @@ using UnityEngine;
 namespace Prototype3 {
    public class PlayerController : MonoBehaviour {
       private bool isOnGround = true;
-      private float jumpForce = 250.0f;
-      private float gravityModifier = 0.25f;
+      private float jumpForce = 400.0f;
+      private float gravityModifier = 1f;
 
       private Rigidbody playerRb;
       private Animator playerAnim;
@@ -40,17 +40,19 @@ namespace Prototype3 {
       }
 
       private void OnCollisionEnter(Collision other) {
-         if (other.gameObject.CompareTag("Ground")) {
-            isOnGround = true;
-            dirtParticle.Play();
-         } else if (other.gameObject.CompareTag("Obstacle")) {
-            // Game Over
-            gameOver = true;
-            playerAudio.PlayOneShot(crashSound, 1.0f);
-            playerAnim.SetBool("Death_b", true);
-            playerAnim.SetInteger("DeathType_int", 1);
-            explosionParticle.Play();
-            dirtParticle.Stop();
+         if (!gameOver) {
+            if (other.gameObject.CompareTag("Ground")) {
+               isOnGround = true;
+               dirtParticle.Play();
+            } else if (other.gameObject.CompareTag("Obstacle")) {
+               // Game Over
+               gameOver = true;
+               playerAudio.PlayOneShot(crashSound, 1.0f);
+               playerAnim.SetBool("Death_b", true);
+               playerAnim.SetInteger("DeathType_int", 1);
+               explosionParticle.Play();
+               dirtParticle.Stop();
+            }
          }
       }
    }

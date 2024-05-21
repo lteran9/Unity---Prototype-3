@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Prototype3 {
    public class MoveLeft : MonoBehaviour {
-      [SerializeField] private PlayerController playerControllerScript;
+      private PlayerController playerControllerScript;
 
       private float speed = 15.0f;
 
