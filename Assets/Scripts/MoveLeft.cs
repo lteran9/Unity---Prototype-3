@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Prototype3 {
    public class MoveLeft : MonoBehaviour {
-      private float speed = 15.0f;
-
       [SerializeField] private PlayerController playerControllerScript;
+
+      private float speed = 15.0f;
 
       // Start is called before the first frame update
       private void Start() {
