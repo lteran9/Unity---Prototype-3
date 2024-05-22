@@ -4,13 +4,23 @@ using UnityEngine;
 
 namespace Prototype3 {
    public class RepeatBackground : MonoBehaviour {
-      private float repeatWidth;
+      private float repeatWidth {
+         get {
+            if (boxCollider != null) {
+               return boxCollider.size.x / 2;
+            }
+
+            return 1f;
+         }
+      }
       private Vector3 startPos;
+      private BoxCollider boxCollider;
 
       // Start is called before the first frame update
       private void Start() {
+         // Cache initial position of game object
          startPos = transform.position;
-         repeatWidth = GetComponent<BoxCollider>().size.x / 2;
+         boxCollider = GetComponent<BoxCollider>();
       }
 
       // Update is called once per frame
